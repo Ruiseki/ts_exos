@@ -1,12 +1,19 @@
+import axios from "axios";
 
-export function getUserSummary(id: number) {
-    
+export async function getUserSummary(id: number) {
+    let url: string = `https://jsonplaceholder.typicode.com/users/${id}`;
+    try {
+        let { data } = await axios.get(url)
+        return `${data.name} (${data.username}) - ${data.email}`;
+    }
+    catch(err) {
+        throw new Error("User not found");
+    }
+};
+
+/* async function test()
+{
+    console.log(await getUserSummary(9));
 }
 
-// a supprimer plus tard
-async function ceciEstUnFauxTest() {
-    const result = await getUserSummary(1)
-    console.log(result)
-}
-
-ceciEstUnFauxTest()
+test(); */
